@@ -1,6 +1,8 @@
 import React from "react";
 import images from "../images/DSC_1523 5.jpg";
-import { FaTh } from "react-icons/fa";
+import { FaMicrophone, FaSearch, FaTh, FaVoicemail } from "react-icons/fa";
+import googleS from "../images/ggg.png";
+import voiceImage from "../images/googlemic_clr_24px.svg";
 
 const Home = () => {
   return (
@@ -19,6 +21,32 @@ const Home = () => {
           <div className="image">
             <img src={images} alt="profile" />
           </div>
+        </div>
+      </div>
+      <div className="google_image">
+        <img src={googleS} alt="google" />
+      </div>
+      <div className="search_secation">
+        <div className="icon_search">
+          <div className="search_icon">
+            <span>
+              <FaSearch></FaSearch>
+            </span>
+          </div>
+          <div className="form-group">
+            <input type="text" className="form-control" name="" id="" />
+          </div>
+          <div className="voice">
+            <span>
+              <img src={voiceImage} alt="" />
+            </span>
+          </div>
+        </div>
+        <div className="search_btn">
+          <button className="btn">Google Search</button>
+          <button className="btn">
+            <a href="">I,m feeling Lucky</a>
+          </button>
         </div>
       </div>
     </div>
