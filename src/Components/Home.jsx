@@ -1,10 +1,27 @@
-import React from "react";
+import React, { useState } from "react";
 import images from "../images/DSC_1523 5.jpg";
-import { FaMicrophone, FaSearch, FaTh, FaVoicemail } from "react-icons/fa";
+import { FaSearch, FaTh } from "react-icons/fa";
 import googleS from "../images/ggg.png";
 import voiceImage from "../images/googlemic_clr_24px.svg";
 
-const Home = () => {
+const Home = (props) => {
+  const [searchValue, setSearchValue] = useState("");
+
+  const search = (e) => {
+    e.preventDefault();
+    if (searchValue) {
+      props.history.push(`/search?q=${searchValue}`);
+    }
+  };
+
+  const keyPress = (e) => {
+    if (e.key === "Enter") {
+      if (searchValue) {
+        props.history.push(`/search?q=${searchValue}`);
+      }
+    }
+  };
+
   return (
     <div className="main">
       <div className="header_secation">
@@ -34,7 +51,14 @@ const Home = () => {
             </span>
           </div>
           <div className="form-group">
-            <input type="text" className="form-control" name="" id="" />
+            <input
+              onKeyPress={keyPress}
+              onChange={(e) => setSearchValue(e.target.value)}
+              type="text"
+              className="form-control"
+              name=""
+              id=""
+            />
           </div>
           <div className="voice">
             <span>
@@ -43,10 +67,45 @@ const Home = () => {
           </div>
         </div>
         <div className="search_btn">
-          <button className="btn">Google Search</button>
+          <button onClick={search} className="btn">
+            Google Search
+          </button>
           <button className="btn">
             <a href="">I,m feeling Lucky</a>
           </button>
+        </div>
+      </div>
+      <div className="lang">
+        Google offered in: <a href=""> বাংলা</a>
+      </div>
+      <div className="footer">
+        <div className="footer_top">Bangladesh</div>
+        <div className="footer_bottom">
+          <ul>
+            <li>
+              <a href="">About</a>
+            </li>
+            <li>
+              <a href="">Advertising</a>
+            </li>
+            <li>
+              <a href="">Business</a>
+            </li>
+            <li>
+              <a href="">How Search works</a>
+            </li>
+          </ul>
+          <ul>
+            <li>
+              <a href="">Privacy</a>
+            </li>
+            <li>
+              <a href="">Terms</a>
+            </li>
+            <li>
+              <a href="">Settings</a>
+            </li>
+          </ul>
         </div>
       </div>
     </div>
