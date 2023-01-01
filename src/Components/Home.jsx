@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import images from "../images/DSC_1523 5.jpg";
 import { FaSearch, FaTh } from "react-icons/fa";
 import googleS from "../images/ggg.png";
+import { CgMenuGridO } from "react-icons/cg";
 import voiceImage from "../images/googlemic_clr_24px.svg";
 
 const Home = (props) => {
@@ -33,7 +34,7 @@ const Home = (props) => {
         </div>
         <div className="icons_images">
           <div className="icon">
-            <FaTh></FaTh>
+            <CgMenuGridO />
           </div>
           <div className="image">
             <img src={images} alt="profile" />
