@@ -17,36 +17,38 @@ const useQuery = () => {
 };
 
 const Search = (props) => {
-  const apiKey = "AIzaSyDB9wouIP8cZSCdzEw7sVo92pyNKddDsHY";
-  const cxKey = "11142439841e7422f";
+  const apiKey = "AIzaSyACEoOywJtzmnw-teThVXFerR21RsWjQLg";
+  const cxKey = "86de32706f83c438f";
 
-  const [searchData, setSeacrhData] = useState({
-    data: [],
-    resultInfo: "",
-  });
+
   const value = useQuery();
   const [state, setState] = useState(value);
 
-  const searchItems = () => {
-    axios
-      .get(
-        `  https://www.googleapis.com/customsearch/v1?key=${apiKey}&cx=${cxKey}&q=${value}`
-      )
-      .then((res) => {
-        console.log(res);
-        setSeacrhData({
-          ...searchData,
-          data: res.data.items || [],
-          resultInfo: res.data.searchInformation,
-        });
-      })
-      .catch((error) => {
-        console.error(error.response.data);
-      });
-  };
+    const [searchData, setSearchData] = useState({
+      data: [],
+      resultInfo: "",
+    });
+
+
+   const search = () => {
+     axios
+       .get(
+         `https://www.googleapis.com/customsearch/v1?key=${apiKey}&cx=${cxKey}&q=${value}`
+       )
+       .then((res) => {
+         setSearchData({
+           ...searchData,
+           data: res.data.items || [],
+           resultInfo: res.data.searchInformation,
+         });
+       })
+       .catch((error) => {
+         console.log(error.response.data);
+       });
+   };
 
   useEffect(() => {
-    searchItems();
+    search();
   }, [value]);
 
   const keyPress = (e) => {
@@ -57,23 +59,23 @@ const Search = (props) => {
     }
   };
 
-  const selectHeader = useRef();
-  const selectResult = useRef();
+  // const selectHeader = useRef();
+  // const selectResult = useRef();
 
-  window.addEventListener("scroll", () => {
-    if (selectResult && selectResult.current) {
-      const height = selectResult.current.offsetTop;
-      if (window.pageYOffset > height) {
-        selectHeader.current?.classList.add("sticky");
-      } else {
-        selectHeader.current?.classList.remove("sticky");
-      }
-    }
-  });
+  // window.addEventListener("scroll", () => {
+  //   if (selectResult && selectResult.current) {
+  //     const height = selectResult.current.offsetTop;
+  //     if (window.pageYOffset > height) {
+  //       selectHeader.current?.classList.add("sticky");
+  //     } else {
+  //       selectHeader.current?.classList.remove("sticky");
+  //     }
+  //   }
+  // });
 
   return (
     <div className="search_main">
-      <div ref={selectHeader} className="search_header">
+      <div className="search_header">
         <div className="img_search_field">
           <div className="logo">
             <Link className="image" to="/">
@@ -132,14 +134,14 @@ const Search = (props) => {
           </div>
         </div>
       </div>
-      <div ref={selectResult} className="result_show">
+      <div className="result_show">
         <div className="count">
           <span>
             About {searchData.resultInfo?.formattedTotalResults} results (
             {searchData.resultInfo?.formattedSearchTime})
           </span>
         </div>
-        <Result data={searchData?.data}></Result>
+        <Result data={searchData.data}></Result>
       </div>
     </div>
   );
