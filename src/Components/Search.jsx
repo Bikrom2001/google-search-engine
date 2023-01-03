@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import googles from "../images/googleS.png";
 import profile from "../images/DSC_1523 5.jpg";
@@ -28,18 +28,26 @@ const Search = (props) => {
   const [state, setState] = useState(value);
 
   const searchItems = () => {
-      axios.get(
+    axios
+      .get(
         `  https://www.googleapis.com/customsearch/v1?key=${apiKey}&cx=${cxKey}&q=${value}`
-      ).then(data => {
-        console.log(data);
-      }).catch(error => {
-        console.error(error.response.data);
+      )
+      .then((res) => {
+        console.log(res);
+        setSeacrhData({
+          ...searchData,
+          data: res.data.items || [],
+          resultInfo: res.data.searchInformation,
+        });
       })
-  }
+      .catch((error) => {
+        console.error(error.response.data);
+      });
+  };
 
-  useEffect(()=>{
-    searchItems()
-  },[value])
+  useEffect(() => {
+    searchItems();
+  }, [value]);
 
   const keyPress = (e) => {
     if (e.key === "Enter") {
@@ -49,9 +57,23 @@ const Search = (props) => {
     }
   };
 
+  const selectHeader = useRef();
+  const selectResult = useRef();
+
+  window.addEventListener("scroll", () => {
+    if (selectResult && selectResult.current) {
+      const height = selectResult.current.offsetTop;
+      if (window.pageYOffset > height) {
+        selectHeader.current?.classList.add("sticky");
+      } else {
+        selectHeader.current?.classList.remove("sticky");
+      }
+    }
+  });
+
   return (
     <div className="search_main">
-      <div className="search_header">
+      <div ref={selectHeader} className="search_header">
         <div className="img_search_field">
           <div className="logo">
             <Link className="image" to="/">
@@ -110,11 +132,14 @@ const Search = (props) => {
           </div>
         </div>
       </div>
-      <div className="result_show">
+      <div ref={selectResult} className="result_show">
         <div className="count">
-          <span>About 242,000,000 results (0.45 seconds)</span>
+          <span>
+            About {searchData.resultInfo?.formattedTotalResults} results (
+            {searchData.resultInfo?.formattedSearchTime})
+          </span>
         </div>
-        <Result></Result>
+        <Result data={searchData?.data}></Result>
       </div>
     </div>
   );

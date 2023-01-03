@@ -1,19 +1,17 @@
 import React from 'react';
 
-const Result = () => {
+const Result = ({data}) => {
+  console.log(data);
     return (
       <div className="map">
-        <div className="show">
-          <span>https://heroicons.com</span>
-          <a href="https://heroicons.com">
-            Heroicons – Free Open Source SVG Icon Library
-          </a>
-          <p>
-            Beautiful hand-crafted SVG icons, by the makers of Tailwind CSS. 292
-            icons. MIT license. React & Vue libraries. Documentation Get Figma
-            File. Outline
-          </p>
-        </div>
+        {data?.length > 0 &&
+          data?.map((da, index) => (
+            <div key={index} className="show">
+              <span>{da?.displayLink}</span>
+              <a href={da?.link}>{da?.title}</a>
+              <p>{da?.snippet}</p>
+            </div>
+          ))}
       </div>
     );
 };
