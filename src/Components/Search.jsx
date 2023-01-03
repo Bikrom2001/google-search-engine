@@ -17,8 +17,8 @@ const useQuery = () => {
 };
 
 const Search = (props) => {
-  const apiKey = "AIzaSyACEoOywJtzmnw-teThVXFerR21RsWjQLg";
-  const cxKey = "86de32706f83c438f";
+  const apiKey = "Your api key";
+  const cxKey = "cxkey";
 
 
   const value = useQuery();
