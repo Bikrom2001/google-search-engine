@@ -4,6 +4,7 @@ import { FaSearch, FaTh } from "react-icons/fa";
 import googleS from "../images/ggg.png";
 import { CgMenuGridO } from "react-icons/cg";
 import voiceImage from "../images/googlemic_clr_24px.svg";
+import { Link } from "react-router-dom";
 
 const Home = (props) => {
   const [searchValue, setSearchValue] = useState("");
@@ -36,8 +37,25 @@ const Home = (props) => {
           <div className="icon">
             <CgMenuGridO />
           </div>
-          <div className="image">
+          {/* <div className="image">
             <img src={images} alt="profile" />
+          </div> */}
+          <div>
+            <Link to="/login">
+              <button
+                style={{
+                  cursor: "pointer",
+                  backgroundColor: "blue",
+                  color: "white",
+                  padding: "8px",
+                  border: "none",
+                  borderRadius: "5px",
+                }}
+                className="bg-blue-500"
+              >
+                সাইন-ইন করুন
+              </button>
+            </Link>
           </div>
         </div>
       </div>
